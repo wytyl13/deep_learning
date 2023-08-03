@@ -1,6 +1,6 @@
 import sys
 sys.path.append("../..")
-from sample.deepLearningWithPytorch.chapter1 import Chapter1
+from sample.deepLearningWithPytorch.book_dl_pytorch.chapter1 import Chapter1
 
 
 if __name__ == "__main__":

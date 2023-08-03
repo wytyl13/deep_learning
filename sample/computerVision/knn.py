@@ -22,6 +22,17 @@
  0 0 1 1
  0 0 1 1
  this case need to two line to distinguish it at least.
+
+ you should distinguish the difference between knn and nn, they are both calculate the matrix about
+ each test data and each train data. it means you will calculate the L2 error for each train data and 
+ each test samples. you will get the test_n*train_n dimension matrix.
+ and you should return the label for the minimum k L2 value for each row.
+ and you should find the correspond label for the k minimum L2 value in train samples.
+ and you should find the label that max bincount label in k samples.
+ last, the label is the predict value.
+ and you should calculate the accuracy based on the predict result.
+ of course, these process need not to train any weight parameters. and the amount of calculation is huge.
+ so nn and knn algorithm is not the best choice for classfication problems.
 ***********************************************************************'''
 from nn import *
 from data_utils import load_CIFAR10
@@ -141,7 +152,7 @@ class KNearestNeighbor(NearestNeighbor):
 
             # bincount: return the number of occurrences of each element in closest_y
             # argmax: return the index of the max number of occurences. of course
-            # you can alse return the row or column indicies by adding the axis
+            # you can also return the row or column indicies by adding the axis
             # if the parameters is two dimension data.
             # find the label that max number of occurrences in closest_y what got
             # from y_train based on the idx.
@@ -166,19 +177,23 @@ class KNearestNeighbor(NearestNeighbor):
 
     """ 
     what is cross validation? split the train samples into n copies, use each copies
-    as the test data and use all the samples as train data to predict the test samples.
-    then, you should predict n times.
-    then you will get n accuracy for each copies.
+    as the validation data and use all the other samples as train data to train the weight.
+    then, you should validate n times. then you will get n accuracy for each copies. 
+    and then calculate the average of all the validation result score.
+    notice, because the knn and nn algorithm has not the train process, so you can call all the process as
+    predict process. we have called it used train former.
+    
     then for loop one k superparameter list. excute the former code.
     you should get the best superparameter in the result.
     1...50...100...150...200
     train samples is form 1 to 200.
-    predict 1...50, 51...100, 101...150, 151...200 use one k and get the accuracy. you should get one accuracy list.
-    then test another k used the former method.
-    you should get each accuracy based on each k, select the best k at last.
-    notice, if your class instancement has set train funcitono out of the function crossValidation,
+    predict 1...50, 51...100, 101...150, 151...200 use one sample and get the accuracy. you should get one accuracy list.
+    then test the other used the former method.
+    you should get each accuracy list based on each sample, select the best k accuracy list in the list at last.
+    notice, if your class instancement has set train function out of the function crossValidation,
     you should reset it into this function. but if you have defined the same samples in your case, 
     you need not to reset it, because the training samples are similar.
+    at last you will return one k*5 list.
     """
     def crossValidation(self, X_train, y_train, k_choices):
         # define the batch

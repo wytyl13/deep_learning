@@ -77,7 +77,9 @@
 ******************************************************************************************"""
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 plt.rcParams['font.sans-serif'] = 'SimHei' 
+plt.rcParams['font.family'] = 'SimSun'
 class Imshow:
     def __init__(self, name) -> None:
         self.name = name
@@ -198,4 +200,101 @@ class Imshow:
         plt.xticks(fontsize = 20)
         plt.yticks(fontsize = 20)
         plt.legend(loc = 'upper left',fontsize=20)
+        plt.show()
+
+    def imshow_111(data):
+        labelx = data["申请年份"]
+        ind = np.arange(len(labelx))
+        labely1 = data["申请趋势"]
+        labely2 = data["授权趋势"]
+        labely3 = data["公开趋势"]
+        fig, ax = plt.subplots()
+        ax.plot(ind, labely1, lw = 2, color = 'b', marker = 's', label = "申请趋势")
+        ax.plot(ind, labely2, lw = 2, color = 'g', marker = 'D', label = "授权趋势")
+        ax.plot(ind, labely3, lw = 2, color = 'r', marker = 'o', label = "公开趋势")
+        ax.set_xticks(ind)
+        ax.set_xticklabels(labelx)
+        ax.set_xlabel(xlabel = '年份',fontsize=20)
+        ax.set_ylabel(ylabel = '个数',fontsize=20)
+        plt.xticks(labelx, fontsize = 20)
+        plt.yticks(fontsize = 20)
+        plt.legend(loc = 'upper left',fontsize=20)
+        plt.show()
+
+    def imshow222(data):
+        labelx = data["年份"]
+        ind = np.arange(len(labelx))
+        print(labelx)
+        labely1 = data["人类生活必需品"]
+        labely2 = data["化学或冶金工艺"]
+        labely3 = data["机器或设备的物理结构"]
+        labely4 = data["物理学"]
+        labely5 = data["机械工程、照明、加热、武器、爆破学"]
+        labely6 = data["纺织品、纸张和办公用品"]
+        fig, ax = plt.subplots()
+        ax.bar(labelx, labely1, lw = 1, color = 'red', label = '人类生活必需品')
+        ax.bar(labelx, labely2, bottom=labely1, lw = 1, color = 'green', label = '化学或冶金工艺')
+        ax.bar(labelx, labely3, bottom=labely2 + labely1, lw = 1, color = 'blue', label = '机器或设备的物理结构')
+        ax.bar(labelx, labely4, bottom=labely3 + labely2 + labely1, lw = 1, color = 'pink', label = '物理学')
+        ax.bar(labelx, labely5, bottom=labely4 + labely3 + labely2 + labely1, lw = 1, color = 'gray', label = '机械工程、照明、加热、武器、爆破学')
+        ax.bar(labelx, labely6, bottom=labely5 + labely4 + labely3 + labely2 + labely1, lw = 1, color = 'yellow', label = '纺织品、纸张和办公用品')
+        ax.set_xlabel(xlabel='年份', fontsize=20)
+        ax.set_ylabel(ylabel="数量", fontsize=20)
+        plt.xticks(labelx, fontsize=15)
+        plt.yticks(fontsize=15)
+        plt.legend(loc = 'upper left', fontsize=15)
+        plt.show()
+
+
+    def imshow_multi_bar(data):
+        x = np.arange(10)
+        columns = data.columns.values
+        xlabel = data[columns[0]][3:]
+        # y1 = data[columns[1]]
+        # y2 = data[columns[2]]
+        # y3 = data[columns[3]]
+        # y4 = data[columns[4]]
+        # y5 = data[columns[5]]
+        # y6 = data[columns[6]]
+        # y7 = data[columns[7]]
+        # y8 = data[columns[8]]
+        
+        bar_width = 0.12
+        color_schemes = ['#eda8a8', '#74aed3', '#d0e2b5', '#ccaed0', '#f6c97d', '#e5a5bd', '#cee4ec']
+        for i, color_scheme in enumerate(color_schemes):
+            label = columns[i + 1]
+            y = data[label][3:]
+            plt.bar(x + i * bar_width, y, bar_width, color = color_scheme, label = label)
+        # plt.bar(x, y1, bar_width, color='b', label = columns[1])
+        # plt.bar(x + bar_width, y2, bar_width, color='c', label = columns[2])
+        # plt.bar(x + 2 * bar_width, y3, bar_width, color='g', label = columns[3])
+        # plt.bar(x + 3 * bar_width, y4, bar_width, color='k', label = columns[4])
+        # plt.bar(x + 4 * bar_width, y5, bar_width, color='m', label = columns[5])
+        # plt.bar(x + 5 * bar_width, y6, bar_width, color='r', label = columns[6])
+        # plt.bar(x + 6 * bar_width, y7, bar_width, color='gray', label = columns[7])
+        # plt.bar(x + 7 * bar_width, y8, bar_width, color='y', label = columns[8])
+
+        plt.legend(bbox_to_anchor=(0.08, 0.65), fontsize=12)
+        plt.xticks(x + 3.5 * bar_width, xlabel, fontsize=15)
+        plt.yticks(fontsize=15)
+        plt.xlabel(columns[0], fontsize = 15)
+        plt.ylabel("文献数量 Literature number", fontsize = 15)
+        plt.show()
+
+
+    def imshow_particular():
+        x = [0.5, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 2.6, 2.9, 3.2]
+        xlabel = [2009, 2010, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2021]
+        yticks = [1, 3, 5, 7, 9]
+        y = [3, 4, 7, 5, 4, 5, 2, 3, 7, 3]
+        width = 0.2
+        plt.figure(figsize=(9,6))
+        plt.bar(x, y, width=width, color='#f0b993', label="香菇多糖 Lentinan")
+        plt.xticks(x, xlabel, fontsize=15)
+        plt.yticks(yticks, fontsize=15)
+        plt.xlabel("年份 Particular year", fontsize=15)
+        plt.ylabel("登记总数 Total registrations", fontsize=15)
+        for i, y_value in enumerate(y):
+            plt.text(x[i], y_value+0.1, y_value, ha='center', fontsize=12)
+        plt.legend(bbox_to_anchor=(0.8, 0.98), fontsize=18)
         plt.show()

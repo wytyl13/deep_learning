@@ -55,6 +55,8 @@ class NearestNeighbor(object):
         num_classes = len(classes)
         samples_per_class = 7
         for y, cls in enumerate(classes):
+            # notice, the enumerate is one iteration function. you can get the index and the
+            # correspond value from one list variable.
             # get a 1 dimension array stored the indicies of y_train
             # that y_train != y.
             # np.flatnonzero(arr): return the indicies of non zero element in arr.

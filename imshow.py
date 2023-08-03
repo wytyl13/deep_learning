@@ -1,6 +1,6 @@
 from sample.paper.paper import Imshow
 import pandas as pd
-from sample.paper.map import MAP
+# from sample.paper.map import MAP
 import numpy as np
 from sample.general.imshow import Bar
 
@@ -26,11 +26,21 @@ if __name__ == "__main__":
     # attentionRegion = arrayAttention.tolist()
     # noAttentionRegion = [["石河子", 0], ["铁门关", 0], ["阿拉尔", 0], ["图木舒克", 0], ["可克达拉", 0], ["北屯", 0], ["双河", 0], ["昆玉", 0], ["五家渠", 0]]
     # MAP.createCityMap(name_map, attentionRegion, noAttentionRegion) 
-    bar = Bar("bar figure")
-    bar.imshow()
+    # bar = Bar("bar figure")
+    # bar.imshow()
     """     
     data = pd.read_excel('c:/users/80521/desktop/无作者/imshow.xlsx')
     Imshow.imshow_3_6(data)  
     """
     # data = pd.read_excel('c:/users/80521/desktop/无作者/imshow_.xlsx')
     # Imshow.imshow_3_7(data)  
+
+    # data = pd.read_excel('c:/users/80521/desktop/test.xlsx')
+    # Imshow.imshow_111(data)
+    # data = pd.read_excel('c:/users/80521/desktop/test1.xlsx')
+    # Imshow.imshow222(data)
+
+    # data = pd.read_excel("c:/users/80521/desktop/paper.xlsx")
+    # Imshow.imshow_multi_bar(data)
+
+    Imshow.imshow_particular()

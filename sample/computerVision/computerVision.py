@@ -28,6 +28,25 @@ the object image and with each sample. the super parameter can influence the eff
 algorithm. so we should select the best k parameter used cross validation.
 once we found the k nearest sample for the object image. we should get the label that in most times
 in these k samples. the label will be the predict label for the object image.
+
+
+and you should distinct the computer vision and machine vision, the former is more widely.
+the last is just dedicated to the machine. the former involved all the net resources, just like
+web net.
+
+the value of loss function, you need to define it as one nonnegative real number. and the
+value can adjust the weight as the feedback signal. the efficient of classification will be better
+if you recycle to adjust the weight based on the value of loss function, and make sure that
+mixmum the value of loss function. so you should notice that your loss function must be
+the function of your weight in your model. because we should optimize the model based
+on all the samples, so we should consider the average of loss value of all the samples.
+so one most simple loss function can be this, 
+L = 1/N * ΣLi(f(xi, W), yi)
+Li is the loss function for one sample.
+L is the loss function for all the samples.
+yi is the true label for one sample.
+f(xi, W) is the predict value for one sample based on the current weight.
+xi is the ith image in your train dataset.
 ***********************************************************************'''
 import numpy as np
 import torchvision.datasets

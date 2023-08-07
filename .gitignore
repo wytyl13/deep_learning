@@ -1,3 +1,7 @@
 sample/computerVision/data/
 data/
 doc/
+sample/deepLearningWithPytorch/logs/
+sample/deepLearningWithPytorch/yolo/data/
+sample/deepLearningWithPytorch/yolo/logs/
+

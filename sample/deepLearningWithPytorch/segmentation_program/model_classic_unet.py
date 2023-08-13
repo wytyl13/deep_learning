@@ -26,7 +26,7 @@
 import torch.nn as nn
 import torch
 from torch.nn import functional as F
-
+from utils import VOC
 
 class Conv_Block(nn.Module):
     def __init__(self, in_channels, out_channels) -> None:
@@ -129,6 +129,7 @@ class UNet(nn.Module):
         # used the num class as  the output channel. we can drop  the sigmoid.
         # because the output channel will give the probability directly.
         self.out = nn.Conv2d(64, num_classes, 3, 1, 1)
+        # this code will be just used for the voc train model.
         # self.th = nn.Sigmoid()
     
 
@@ -144,14 +145,15 @@ class UNet(nn.Module):
         O3 = self.conv8(self.u3(R3, R2))
         O4 = self.conv9(self.u4(R2, R1))
 
-        return self.out(O4)
+        out = self.out(O4)
+        return out
 
 
 
 
 if __name__ == "__main__":
 
-    net = UNet()
+    net = UNet(3)
     input = torch.randn(2, 3, 256, 256)
     # pixel to pixel, 2*3*256*256 to 2*3*256*256
     print(net(input).shape)

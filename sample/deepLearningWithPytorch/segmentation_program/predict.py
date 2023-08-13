@@ -11,7 +11,7 @@ from utils import scale_image_RGB
 from utils import CLASS_NAMES
 from utils import DEVICE
 from utils import WEIGHT_PATH
-
+from datasets import transform
 
 if __name__ == "__main__":
     # notice the num_classes must be similar to the trained model.

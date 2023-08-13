@@ -33,10 +33,33 @@ import torch
 
 CLASS_NAMES = ['background', 'dog', 'cat', 'person', 'horse']
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-WEIGHT_PATH = "../../../docs/unet.pth"
-DATA_PATH1 = "D:\\development_code_2023-03-03\\vscode\\deep_learning\\data\\VOCdevkit\\VOC2012"
-DATA_PATH2 = "D:\\development_code_2023-03-03\\vscode\\deep_learning\\data\\unet_image"
-SAVE_TRAINING_IMAGE = "../../../data/unet_image/training_image"
+WEIGHT_PATH_VOC = "../../../docs/unet_voc.pth"
+WEIGHT_PATH_SELF = "../../../docs/unet_self.pth"
+DATA_PATH_VOC = "../../../data/VOC"
+DATA_PATH_SELF = "../../../data/unet_image"
+SAVE_TRAINING_IMAGE_VOC = "../../../data/unet_image/training_image/voc"
+SAVE_TRAINING_IMAGE_SELF = "../../../data/unet_image/training_image/self"
+VOC = True
+
+
+def getPalette(img_path):
+    """
+    获取图片调色板信息
+    """
+    img = Image.open(img_path)
+    palette = img.getpalette()
+    return palette
+
+def tensorToPImage(mask_np, palette):
+    """
+    输入：图片的nparray 和 调色板信息
+    输出：对应位图
+    """
+    img = np.uint8(mask_np)
+    img = Image.fromarray(img)
+    img.putpalette(palette)
+    return img
+
 
 def scale_image_RGB(path, size = (256, 256)):
     image = Image.open(path)
@@ -55,6 +78,16 @@ def scale_image_P(path, size=(256, 256)):
     mask = mask.resize(size)
     return mask
 
+def scale_image_mask(path, size=(256, 256)):
+    img = Image.open(path)
+    p = img.getpalette()
+    temp = max(img.size)
+    mask = Image.new('P', (temp, temp))
+    mask.putpalette(p)
+    mask.paste(img, (0, 0))
+    mask = mask.resize(size)
+    return mask
+
 '''
  * @Author: weiyutao
  * @Date: 2023-08-02 16:14:29
@@ -62,7 +95,17 @@ def scale_image_P(path, size=(256, 256)):
  * @Return: 
  * @Description: this function is dedicated to transform the json file what make from
  labelme tool. they are some label point for one image, we will generate one mask
- image based on the json file and original image used this function as follow.
+ image based on the json file and original image used this function as follow. this function can just
+ transform the original image and correspond json file to the single channel image. and the gray value
+ corresponding to its class index.我们这里使用的是单通道的灰度图像来对分割图做处理，比如是将标记好
+ 的xml文件转换为灰度图像，灰度值对应的就是标记的物体的索引值。这样我们可以在训练的时候对对应的灰度图
+ 和原始图去定义交叉熵损失函数，也就是多分类的损失函数，最后训练出来的参数会使得生成的分割图像向对应的灰度值去靠近。
+ 然后如果我们想要展示生成的分割图像，因为他是灰度图像，而且灰度值对应的是物体的索引，所以直接展示是黑色的。
+ 我们可以使用缩放灰度的方式对每一个像素点乘以20或者某一个固定的值，然后再展示该灰度图像即可。
+ 当然我们也可以使用Image类的调色板方法，调色版的方法就是尽量使用单通的图像去表示全部颜色，也就是我们的
+ 单通道图像中的每一个灰度值都可以最终转换为彩色图像。当然，如果我们之前已经定义好了调色版，那么
+ 我们可以直接使用plt.imshow去展示该单通道图像对应的调色版图像。我们这里对VOC数据集使用了调色版的方式
+ 因为它的分类数量比较多，而我们对我们自定义的训练数据使用了单通道灰度图像的表示方式。
  '''
 def make_mask(image_dir, save_dir):
     data = os.listdir(image_dir)

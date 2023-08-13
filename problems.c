@@ -14,4 +14,6 @@
  * git config --global http.proxy 127.0.0.1:7890
  * git config --global https.proxy 127.0.0.1:7890
  * 7890 is the port of your proxy.
+ * and you should git add *, git commit -m "any string", git push -u origin main.
+ * or you will get the same error when you git push your program.
 ***********************************************************************/

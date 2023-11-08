@@ -154,7 +154,7 @@ class Algorithm:
     = (X.T@X)^-1@X.T@y.
     so you can just known X and y if you want to calculate the unknown param theta.
 
-# the third mthod is grandient descent, it means you should init one random scalar or one array list for theta.
+# the third method is grandient descent, it means you should init one random scalar or one array list for theta.
 # you can init 0 for the theta. then, you should calculate the cost function based on each theta. you should update
 # the theta based on the grandient descent. what is grandient descent? the cost function looks like the backward of a mountain, 
 # you want to walk from top to bottom and waste less time, you should select a correct and fast direction. the slope is the correct

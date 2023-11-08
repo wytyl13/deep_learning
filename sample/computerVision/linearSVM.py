@@ -192,7 +192,7 @@ import numpy as np
  * for weight value will just parts processed overfitting problems. the best method to handle the overfitting problem is
  * to simple the model and make each weights value more equal, just like the weights as follow.
  * weight1 [1, 0, 0, 0]
- * weight2[0.25, 0.25, 0.25]
+ * weight2[0.25, 0.25, 0.25, 0.25]
  * X[1, 1, 1, 1]
  * weight1.T @ X = weight2.T @ X = 1. they have the same score, but the weight2 can handle the overfitting model as 
  * the more efficient than weight1. this is because weight2 make each weights value more equal. then we can find

@@ -78,6 +78,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.patches import ConnectionPatch
+from pyecharts.charts import Pie, Page
+from pyecharts import options as opts
+
+
 plt.rcParams['font.sans-serif'] = 'SimHei' 
 plt.rcParams['font.family'] = 'SimSun'
 class Imshow:
@@ -298,3 +303,46 @@ class Imshow:
             plt.text(x[i], y_value+0.1, y_value, ha='center', fontsize=12)
         plt.legend(bbox_to_anchor=(0.8, 0.98), fontsize=18)
         plt.show()
+    
+    def create_pie(data, title) -> Pie:
+        pie = Pie()
+        pie.add("", data)
+        pie.set_global_opts(
+            title_opts=opts.TitleOpts(
+                title=title, 
+                title_textstyle_opts=opts.TextStyleOpts(font_size=18, font_weight= "bold"),
+                pos_left="center"
+            ),
+            legend_opts=opts.LegendOpts(
+                is_show = False,
+                pos_right="center"
+            )
+        )
+        pie.set_series_opts(
+            label_opts=opts.LabelOpts(
+                formatter="{b}: {c}: {d}%",
+                font_size = 16,
+                font_weight = "bold"
+            )
+        )
+        return pie
+
+
+
+    def imshow_pie(data1, data2, data3):
+        page = Page(layout=Page.DraggablePageLayout)
+        labels1 = data1["index"]
+        sizes1 = data1["data"]
+        labels2 = data2["index"]
+        sizes2 = data2["data"]
+        labels3 = data3["index"]
+        sizes3 = data3["data"]
+        datas1 = list(zip(labels1.to_list(), sizes1.to_list()))
+        datas2 = list(zip(labels2.to_list(), sizes2.to_list()))
+        datas3 = list(zip(labels3.to_list(), sizes3.to_list()))
+        pie1 = Imshow.create_pie(datas1, "按登记作物统计")
+        pie2 = Imshow.create_pie(datas2, "按防治对象统计")
+        pie3 = Imshow.create_pie(datas3, "按药剂类别统计")
+        page.add(pie1, pie2, pie3)
+        page.render("c:/users/80521/desktop/pie.html")
+    

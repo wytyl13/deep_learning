@@ -43,4 +43,11 @@ if __name__ == "__main__":
     # data = pd.read_excel("c:/users/80521/desktop/paper.xlsx")
     # Imshow.imshow_multi_bar(data)
 
-    Imshow.imshow_particular()
+    # Imshow.imshow_particular()
+    data1 = pd.read_excel("c:/users/80521/desktop/pie.xlsx", sheet_name="Sheet1")
+    data2 = pd.read_excel("c:/users/80521/desktop/pie.xlsx", sheet_name="Sheet2")
+    data3 = pd.read_excel("c:/users/80521/desktop/pie.xlsx", sheet_name="Sheet3")
+    data_sorted1 = data1.sort_values(by='data', ascending=False)
+    data_sorted2 = data2.sort_values(by='data', ascending=False)
+    data_sorted3 = data3.sort_values(by='data', ascending=False)
+    Imshow.imshow_pie(data_sorted1, data_sorted2, data_sorted3)

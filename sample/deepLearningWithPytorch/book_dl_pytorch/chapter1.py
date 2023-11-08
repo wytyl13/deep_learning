@@ -96,15 +96,15 @@ result.
 so for one training, the normalization for the input is necessary. and a suitable learning rate is necessary.
 of course, in response to the gradient explosion, we can do the gradient cut.
 how to response to the gradient disappear? because we used the chain derivative method. if we used the sigmoid function
-what is the nonlinear function, and the biggest gradient value for the sigmoid function is 0.25, and the inited weight
+what is the linear function, and the biggest gradient value for the sigmoid function is 0.25, and the inited weight
 is very small. generally less than 1. so if the layer number is very bigger, the chain derivative value will be close
 to zero. so the gradient disappear will happen. so the deeper neural network will result to the gradient disappear.
 then, how to handle these problems?
 conclusion, initialized the greater weight, the greater learning rate or  deeper nueral network will
-result to the gradient explosion. the nonlinear sigmoid function, deeper neural network will result to the
+result to the gradient explosion. the linear sigmoid function, deeper neural network will result to the
 gradient disappear. so the solution is as follow.
 1 gradient cut, it is generally used for the gradient explosion.
-2 the linear sigmoid funtion, just like relu.  it is generally used for the gradient disappear.
+2 the nonlinear sigmoid funtion, just like relu.  it is generally used for the gradient disappear.
 3 the batch normalize, just like scale the input value or (input - mean) / std. it is generally used for  the
 gradient disappear and explosion.
 4 weight regularization, it can avoid to the gradient explosion.

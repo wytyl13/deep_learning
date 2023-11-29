@@ -262,4 +262,8 @@ ValueError: path is on mount 'C:', start on mount 'D:'
 * 重复标记的情况。解决办法就只能从xml中找到重复的坐标然后删除。我们在unet中是将labelme
 * 生成的json文件转换为灰度图像。这里我们需要再将xml文件转换为yolo可以识别的txt文件前，先
 * 去除重复标记的坐标。
+
+
+git filter-branch --tree-filter 'docs/unet.pth' --prune-empty HEAD
+git ls-files
 ***********************************************************************/

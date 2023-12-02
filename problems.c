@@ -264,6 +264,8 @@ ValueError: path is on mount 'C:', start on mount 'D:'
 * 去除重复标记的坐标。
 
 
-git filter-branch --tree-filter 'docs/unet.pth' --prune-empty HEAD
-git ls-files
+git rm -r --cached .
+git add .
+git commit -m "Update .gitignore"
+git push -u origin main
 ***********************************************************************/

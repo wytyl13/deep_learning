@@ -268,4 +268,7 @@ git rm -r --cached .
 git add .
 git commit -m "Update .gitignore"
 git push -u origin main
+
+查看仓库中每个文件的大小
+git ls-files | foreach {git log -1 --format="%ad %h $_" -- $_}
 ***********************************************************************/
